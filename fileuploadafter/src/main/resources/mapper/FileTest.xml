@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.fileuploadafter.mapper.FileTest">
+    <insert id="add">
+        insert into filetable(filename,describle,upname,collect,shouchang,filetype)values (#{filename},#{describle},#{upname},"[]","false",#{filetype})
+    </insert>
+    <select id="cxname" resultType="java.lang.Integer">
+        select COUNT(filename) from filetable where filename=#{filename};
+    </select>
+    <delete id="delfile">
+        delete from filetable where filename=#{filename};
+    </delete>
+    <select id="cx">
+        select * from filetable ORDER BY id DESC limit #{idx},20;
+    </select>
+    <update id="fileupdate">
+        update filetable set describle=#{describle} where filename=#{filename};
+    </update>
+    <select id="filenametoupname" resultType="java.lang.String">
+        select upname from filetable where filename=#{filename};
+    </select>
+    <select id="filesearch" resultType="com.example.fileuploadafter.entity.FileTable">
+        select * from filetable where filetable.filename like "%"#{param}"%" limit #{idx},20;
+    </select>
+    <select id="filesearch1" resultType="java.lang.Integer">
+        select count(id) from filetable where filetable.filename like "%"#{param}"%";
+    </select>
+    <select id="filesearchps">
+        select * from filetable where upname=#{username} and filetable.filename like "%"#{param}"%" limit #{idx},20;
+    </select>
+    <select id="filesearchps1" resultType="java.lang.Integer">
+        select count(id) from filetable where upname=#{username} and filetable.filename like "%"#{param}"%";
+    </select>
+    <select id="upnamesearch" resultType="com.example.fileuploadafter.entity.FileTable">
+        select * from filetable where upname=#{upname}  ORDER BY id DESC limit #{idx},20;
+    </select>
+    <select id="datalength" resultType="java.lang.Integer">
+        select count(id) from filetable;
+    </select>
+    <select id="datalength1" resultType="java.lang.Integer">
+        select count(id) from filetable where upname=#{username};
+    </select>
+    <update id="insertjson">
+        update filetable set filetable.collect=JSON_ARRAY_APPEND(collect, '$',#{ids}) where filename=#{filename};
+    </update>
+    <select id="pdjson" resultType="java.lang.Integer">
+        SELECT COUNT(filename) from filetable where  filename=#{filename} and json_contains(filetable.collect,CONCAT('"',#{ids},'"'));
+    </select>
+    <update id="deljson">
+        UPDATE filetable SET collect = JSON_REMOVE(collect, JSON_UNQUOTE(JSON_SEARCH(collect, 'one', #{ids}, NULL, '$[*]'))) WHERE filename = #{filename};
+    </update>
+    <select id="cxdescribe" resultType="java.lang.String">
+        select describle from filetable where filename=#{filename};
+    </select>
+    <select id="cxupname" resultType="java.lang.String">
+        select upname  from filetable where filename=#{filename};
+    </select>
+    <select id="cxfiletype" resultType="java.lang.String">
+        select filetype  from filetable where filename=#{filename};
+    </select>
+</mapper>

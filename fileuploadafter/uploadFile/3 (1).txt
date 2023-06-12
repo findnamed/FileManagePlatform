@@ -1,0 +1,19 @@
+//文件下载接口
+@GetMapping(value = "/download1")
+public void download(@RequestParam("fileName") String fileName, HttpServletResponse response) throws IOException {
+    // 获得待下载文件所在文件夹的绝对路径
+    String realPath = "D:\\FileUploadAndDownload\\fileuploadafter\\uploadFile";
+    // 获得文件输入流
+    FileInputStream inputStream = new FileInputStream(new File(realPath, fileName));
+    // 设置响应头、以附件形式打开文件
+    String encodedFileName = URLEncoder.encode(fileName, "UTF-8");
+    response.setHeader("content-disposition", "attachment; fileName=" + encodedFileName);
+    ServletOutputStream outputStream = response.getOutputStream();
+    int len = 0;
+    byte[] data = new byte[1024];
+    while ((len = inputStream.read(data)) != -1) {
+        outputStream.write(data, 0, len);
+    }
+    outputStream.close();
+    inputStream.close();
+}

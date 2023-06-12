@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.fileuploadafter.mapper.UserTest">
+    <select id="cx">
+        select * from user;
+    </select>
+    <select id="usernamealready" resultType="java.lang.Integer">
+        select count(username) from user where username=#{username};
+    </select>
+    <select id="login" resultType="java.lang.String">
+        select token from user where user.username=#{username} and user.password=MD5(#{password});
+    </select>
+    <select id="info" resultType="com.example.fileuploadafter.entity.User">
+        select * from user where token=#{token}
+    </select>
+    <insert id="add">
+        insert into user(username,password,admin,token)values (#{username},MD5(#{password}),#{admin},#{token});
+    </insert>
+    <select id="tokentoname" resultType="java.lang.String">
+        select username from user where token=#{token};
+    </select>
+    <select id="tokentoadmin" resultType="java.lang.String">
+        select admin from user where  token=#{token};
+    </select>
+    <select id="cxtotken" resultType="java.lang.Integer">
+        select COUNT(token) from user where token=#{token};
+    </select>
+    <select id="tokentoid" resultType="java.lang.Integer">
+        select id from user where token=#{token};
+    </select>
+</mapper>

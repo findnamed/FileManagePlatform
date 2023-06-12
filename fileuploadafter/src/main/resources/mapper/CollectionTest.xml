@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.fileuploadafter.mapper.CollectionTest">
+    <insert id="add">
+        insert into collectioned(filename,username) values(#{filename},#{username});
+    </insert>
+    <delete id="del">
+        delete from collectioned where filename=#{filename} and username=#{username};
+    </delete>
+    <select id="cx" resultType="com.example.fileuploadafter.entity.Collectioned">
+        select * from collectioned where username=#{username} limit #{idx},20;
+    </select>
+    <select id="cxlen" resultType="java.lang.Integer">
+        select count(filename) from collectioned where username=#{username};
+    </select>
+
+    <select id="cxsearch" resultType="com.example.fileuploadafter.entity.Collectioned">
+        select * from collectioned where username=#{username} and collectioned.filename like "%"#{param}"%" limit #{idx},20;
+    </select>
+    <select id="cxsearchlen" resultType="java.lang.Integer">
+        select count(id) from collectioned where collectioned.filename like "%"#{param}"%" and username=#{username} ;
+    </select>
+    <select id="pdcollect" resultType="java.lang.Integer">
+        select count(id) from collectioned where filename=#{filename} and username=#{username};
+    </select>
+    <select id="pddelfile" resultType="java.lang.Integer">
+        select count(collectioned.id) from collectioned,filetable where filetable.filename=#{filename};
+    </select>
+</mapper>
