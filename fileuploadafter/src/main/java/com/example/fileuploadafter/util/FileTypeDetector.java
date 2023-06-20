@@ -7,7 +7,7 @@ import java.nio.file.Files;
 public class FileTypeDetector {
     public static String getFileType(String fileName) throws IOException {
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("gif")) {
+        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("gif") ) {
             return "image";
         } else if (extension.equals("mp4") || extension.equals("avi") || extension.equals("mov") || extension.equals("wmv")) {
             return "video";

@@ -14,7 +14,7 @@
         select * from user where token=#{token}
     </select>
     <insert id="add">
-        insert into user(username,password,admin,token)values (#{username},MD5(#{password}),#{admin},#{token});
+        insert into user(username,password,admin,token,avatar)values (#{username},MD5(#{password}),#{admin},#{token},"ace.gif");
     </insert>
     <select id="tokentoname" resultType="java.lang.String">
         select username from user where token=#{token};
@@ -27,5 +27,14 @@
     </select>
     <select id="tokentoid" resultType="java.lang.Integer">
         select id from user where token=#{token};
+    </select>
+    <update id="updateavatar">
+        update user set avatar=#{avatar} where token=#{token};
+    </update>
+    <select id="tokentoavatar" resultType="java.lang.String">
+        select avatar from user where token=#{token};
+    </select>
+    <select id="usernametoavatar" resultType="java.lang.String">
+        select avatar from user where username=#{username};
     </select>
 </mapper>

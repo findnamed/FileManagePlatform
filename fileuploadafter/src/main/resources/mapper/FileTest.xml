@@ -13,6 +13,11 @@
     <select id="cx">
         select * from filetable ORDER BY id DESC limit #{idx},20;
     </select>
+    <select id="cxcategory">
+        select * from filetable where filetype=#{category} ORDER BY id DESC limit #{idx},20;
+    </select>
+
+
     <update id="fileupdate">
         update filetable set describle=#{describle} where filename=#{filename};
     </update>
@@ -22,24 +27,60 @@
     <select id="filesearch" resultType="com.example.fileuploadafter.entity.FileTable">
         select * from filetable where filetable.filename like "%"#{param}"%" limit #{idx},20;
     </select>
+
+    <select id="filesearchcategory" resultType="com.example.fileuploadafter.entity.FileTable">
+        select * from filetable where filetype=#{filetype} and filetable.filename like "%"#{param}"%" limit #{idx},20;
+    </select>
+
     <select id="filesearch1" resultType="java.lang.Integer">
         select count(id) from filetable where filetable.filename like "%"#{param}"%";
     </select>
+
+    <select id="filesearch1category" resultType="java.lang.Integer">
+        select count(id) from filetable where filetype=#{filetype} and filetable.filename like "%"#{param}"%";
+    </select>
+
     <select id="filesearchps">
         select * from filetable where upname=#{username} and filetable.filename like "%"#{param}"%" limit #{idx},20;
     </select>
+
+    <select id="filesearchpscategory">
+        select * from filetable where filetype=#{filetype} and upname=#{username} and filetable.filename like "%"#{param}"%" limit #{idx},20;
+    </select>
+
+
     <select id="filesearchps1" resultType="java.lang.Integer">
         select count(id) from filetable where upname=#{username} and filetable.filename like "%"#{param}"%";
     </select>
+
+    <select id="filesearchps1category" resultType="java.lang.Integer">
+        select count(id) from filetable where filetype=#{filetype} and  upname=#{username} and filetable.filename like "%"#{param}"%";
+    </select>
+
     <select id="upnamesearch" resultType="com.example.fileuploadafter.entity.FileTable">
         select * from filetable where upname=#{upname}  ORDER BY id DESC limit #{idx},20;
     </select>
+
+    <select id="upnamesearchcategory" resultType="com.example.fileuploadafter.entity.FileTable">
+        select * from filetable where upname=#{upname} and filetype=#{category}  ORDER BY id DESC limit #{idx},20;
+    </select>
+
     <select id="datalength" resultType="java.lang.Integer">
         select count(id) from filetable;
     </select>
+
+    <select id="datalengthcategory" resultType="java.lang.Integer">
+        select count(id) from filetable where filetype=#{category};
+    </select>
+
     <select id="datalength1" resultType="java.lang.Integer">
         select count(id) from filetable where upname=#{username};
     </select>
+
+    <select id="datalength1category" resultType="java.lang.Integer">
+        select count(id) from filetable where upname=#{username} and filetype=#{category};
+    </select>
+
     <update id="insertjson">
         update filetable set filetable.collect=JSON_ARRAY_APPEND(collect, '$',#{ids}) where filename=#{filename};
     </update>
@@ -55,7 +96,5 @@
     <select id="cxupname" resultType="java.lang.String">
         select upname  from filetable where filename=#{filename};
     </select>
-    <select id="cxfiletype" resultType="java.lang.String">
-        select filetype  from filetable where filename=#{filename};
-    </select>
+    <select id="cxfiletype" resultType="java.lang.String">select filetype  from filetable where filename=#{filename};</select>
 </mapper>

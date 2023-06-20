@@ -12,9 +12,9 @@ public class User {
     private int id;
     private String username;
     private String admin;
-
     @JsonIgnore
     private String token;
     @JsonIgnore
     private String password;
+    private String avatar;
 }

@@ -16,4 +16,7 @@ public class Message {
     private String msg;
     //登录用户名
     private List<String> userName;
+    //头像
+    private String avatar;
+
 }

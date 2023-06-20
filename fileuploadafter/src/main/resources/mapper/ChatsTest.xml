@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.fileuploadafter.mapper.ChatsTest">
+    <insert id="adds">
+        insert into chats(from,to,homeid)values(#{from},#{to},#{homeid});
+    </insert>
+    <select id="cxhome" resultType="java.lang.String">
+        select homeid from chats where (from=#{from} and to=#{to}) or (from=#{to} and to=#{from});
+    </select>
+    <select id="homed" resultType="java.lang.Integer">
+        select count(homeid) from chats where (from=#{from} and to=#{to}) or (from=#{to} and to=#{from});
+    </select>
+</mapper>

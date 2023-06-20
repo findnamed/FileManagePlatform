@@ -11,4 +11,5 @@ public class Collectioned {
     private int id;
     private String filename;
     private String username;
+    private String filetype;
 }
